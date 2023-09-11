@@ -13,6 +13,9 @@ venv/
 tags
 
 # Project-specific ignores
+*.bs*
+*.flash
+*.blu
 *.z64
 *.n64
 *.v64

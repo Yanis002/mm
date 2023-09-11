@@ -163,7 +163,7 @@ void ConsoleLogo_Init(GameState* thisx) {
 
     this->state.main = ConsoleLogo_Main;
     this->state.destroy = ConsoleLogo_Destroy;
-    this->exit = false;
+    this->exit = true;
 
     if (!(PadMgr_GetValidControllersMask() & 1)) {
         gSaveContext.fileNum = 0xFEDC;

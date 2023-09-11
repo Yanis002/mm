@@ -8,9 +8,9 @@ MAKEFLAGS += --no-builtin-rules
 #### Defaults ####
 
 # If COMPARE is 1, check the output md5sum after building
-COMPARE ?= 1
+COMPARE ?= 0
 # If NON_MATCHING is 1, define the NON_MATCHING C flag when building
-NON_MATCHING ?= 0
+NON_MATCHING ?= 1
 # If ORIG_COMPILER is 1, compile with QEMU_IRIX and the original compiler
 ORIG_COMPILER ?= 0
 # if WERROR is 1, pass -Werror to CC_CHECK, so warnings would be treated as errors
@@ -34,8 +34,8 @@ N_THREADS ?= $(shell nproc)
 export LANG := C
 
 ifeq ($(NON_MATCHING),1)
-  CFLAGS := -DNON_MATCHING
-  CPPFLAGS := -DNON_MATCHING
+#   CFLAGS := -DNON_MATCHING
+#   CPPFLAGS := -DNON_MATCHING
   COMPARE := 0
 endif
 
@@ -109,7 +109,8 @@ endif
 # Check code syntax with host compiler
 ifneq ($(RUN_CC_CHECK),0)
   CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion -Wno-unused-but-set-variable -Wno-unused-label -Wno-sign-compare -Wno-tautological-compare
-  CC_CHECK   := gcc -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -D _LANGUAGE_C -D NON_MATCHING $(IINC) -nostdinc $(CHECK_WARNINGS)
+#   CC_CHECK   := gcc -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -D _LANGUAGE_C -D NON_MATCHING $(IINC) -nostdinc $(CHECK_WARNINGS)
+  CC_CHECK   := gcc -fno-builtin -fsyntax-only -funsigned-char -fdiagnostics-color -std=gnu89 -D _LANGUAGE_C $(IINC) -nostdinc $(CHECK_WARNINGS)
   ifneq ($(WERROR), 0)
     CC_CHECK += -Werror
   endif
@@ -267,7 +268,10 @@ ifeq ($(COMPARE),1)
 	@md5sum -c checksum.md5
 endif
 
-.PHONY: all uncompressed compressed clean assetclean distclean assets disasm init setup
+run: $(ROM)
+	$(ARES) $<
+
+.PHONY: all uncompressed compressed clean assetclean distclean assets disasm init setup run
 .DEFAULT_GOAL := uncompressed
 all: uncompressed compressed
 

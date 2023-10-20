@@ -480,9 +480,8 @@
         <Item Key="cueid_90" ID="PLAYER_CUEID_90" Index="90"/>
         <Item Key="cueid_91" ID="PLAYER_CUEID_91" Index="91"/>
     </Enum>
-    <!-- Note: uncomment those and update them once decomp is ready -->
-    <!-- Ocarina Actions are from OoT, it's there for reviewing the PR then it can be removed, same for seq ids -->
     <Enum Games="OoTMqDbg" Key="ocarinaSongActionId" ID="OcarinaSongActionId">
+        <!-- https://github.com/zeldaret/mm/blob/2dc405b6af0cc700b7f3086aabb424bbdf98822d/include/z64ocarina.h#L35-L118 -->
         <Item Key="action_0" ID="OCARINA_ACTION_0" Index="0"/>
         <Item Key="action_free_play" ID="OCARINA_ACTION_FREE_PLAY" Index="1"/>
         <Item Key="action_demonstrate_sonata" ID="OCARINA_ACTION_DEMONSTRATE_SONATA" Index="2"/>
@@ -567,6 +566,7 @@
         <Item Key="action_timed_prompt_storms" ID="OCARINA_ACTION_TIMED_PROMPT_STORMS" Index="81"/>
     </Enum>
     <Enum Games="OoTMqDbg" Key="seqId" ID="SeqId">
+        <!-- https://github.com/zeldaret/mm/blob/2dc405b6af0cc700b7f3086aabb424bbdf98822d/include/sequence.h#L4-132 -->
         <Item Key="general_sfx" ID="NA_BGM_GENERAL_SFX" Index="0"/>
         <Item Key="ambience" ID="NA_BGM_AMBIENCE" Index="1"/>
         <Item Key="termina_field" ID="NA_BGM_TERMINA_FIELD" Index="2"/>

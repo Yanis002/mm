@@ -296,7 +296,7 @@ void EnTest4_Init(Actor* thisx, PlayState* play) {
 
     sCsIdList[0] = csId;
     if (csId >= 0) {
-        ActorCutscene* csEntry = CutsceneManager_GetCutsceneEntry(sCsIdList[0]);
+        CutsceneEntry* csEntry = CutsceneManager_GetCutsceneEntry(sCsIdList[0]);
 
         SET_EVENTINF(EVENTINF_52);
         sCsIdList[1] = csEntry->additionalCsId;

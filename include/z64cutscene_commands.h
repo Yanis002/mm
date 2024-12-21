@@ -19,7 +19,6 @@
  */
 #define CS_BEGIN_CUTSCENE(totalEntries, frameCount) { CMD_W(totalEntries) }, { CMD_W(frameCount) }
 
-
 /**
  * ARGS
  *   s32 entries (e)
@@ -673,5 +672,9 @@ CS_STOP_SEQ((seqId)-1, startFrame, endFrame, unk_06)
 
 #define CS_LIGHTING(lightSetting, startFrame, endFrame) \
 CS_LIGHT_SETTING((lightSetting)-1, startFrame, endFrame)
+
+// ZAPD compatibility
+#define CS_HEADER CS_BEGIN_CUTSCENE
+#define CS_END_OF_SCRIPT CS_END
 
 #endif

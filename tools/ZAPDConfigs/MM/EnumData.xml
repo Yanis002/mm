@@ -500,7 +500,7 @@
 		<Item Key="rel4" ID="CS_CAM_REL_4" Index="4"/>
 		<Item Key="rel5" ID="CS_CAM_REL_5" Index="5"/>
 	</Enum>
-    <Enum Games="OoTMqDbg" Key="ocarinaSongActionId" ID="OcarinaSongActionId">
+    <Enum Key="ocarinaSongActionId" ID="OcarinaSongActionId">
         <!-- https://github.com/zeldaret/mm/blob/2dc405b6af0cc700b7f3086aabb424bbdf98822d/include/z64ocarina.h#L35-L118 -->
         <Item Key="action_0" ID="OCARINA_ACTION_0" Index="0"/>
         <Item Key="action_free_play" ID="OCARINA_ACTION_FREE_PLAY" Index="1"/>
@@ -585,7 +585,7 @@
         <Item Key="action_timed_prompt_soaring" ID="OCARINA_ACTION_TIMED_PROMPT_SOARING" Index="80"/>
         <Item Key="action_timed_prompt_storms" ID="OCARINA_ACTION_TIMED_PROMPT_STORMS" Index="81"/>
     </Enum>
-    <Enum Games="OoTMqDbg" Key="seqId" ID="SeqId">
+    <Enum Key="seqId" ID="SeqId">
         <!-- https://github.com/zeldaret/mm/blob/2dc405b6af0cc700b7f3086aabb424bbdf98822d/include/sequence.h#L4-132 -->
         <Item Key="general_sfx" ID="NA_BGM_GENERAL_SFX" Index="0"/>
         <Item Key="ambience" ID="NA_BGM_AMBIENCE" Index="1"/>
@@ -709,10 +709,96 @@
         <Item Key="dungeon_appear" ID="NA_BGM_DUNGEON_APPEAR" Index="119"/>
         <Item Key="woodfall_clear" ID="NA_BGM_WOODFALL_CLEAR" Index="120"/>
         <Item Key="snowhead_clear" ID="NA_BGM_SNOWHEAD_CLEAR" Index="121"/>
+        <Item Key="seq_122" ID="NA_BGM_SEQ_122" Index="122"/>
         <Item Key="into_the_moon" ID="NA_BGM_INTO_THE_MOON" Index="123"/>
         <Item Key="goodbye_giant" ID="NA_BGM_GOODBYE_GIANT" Index="124"/>
         <Item Key="tatl_and_tael" ID="NA_BGM_TATL_AND_TAEL" Index="125"/>
         <Item Key="moons_destruction" ID="NA_BGM_MOONS_DESTRUCTION" Index="126"/>
         <Item Key="end_credits_second_half" ID="NA_BGM_END_CREDITS_SECOND_HALF" Index="127"/>
+    </Enum>
+    <Enum Key="ambienceId" ID="AmbienceId">
+        <Item Key="ambience_id_00" ID="AMBIENCE_ID_00" Index="0"/>
+        <Item Key="ambience_id_01" ID="AMBIENCE_ID_01" Index="1"/>
+        <Item Key="ambience_id_02" ID="AMBIENCE_ID_02" Index="2"/>
+        <Item Key="ambience_id_03" ID="AMBIENCE_ID_03" Index="3"/>
+        <Item Key="ambience_id_04" ID="AMBIENCE_ID_04" Index="4"/>
+        <Item Key="ambience_id_05" ID="AMBIENCE_ID_05" Index="5"/>
+        <Item Key="ambience_id_06" ID="AMBIENCE_ID_06" Index="6"/>
+        <Item Key="ambience_id_07" ID="AMBIENCE_ID_07" Index="7"/>
+        <Item Key="ambience_id_08" ID="AMBIENCE_ID_08" Index="8"/>
+        <Item Key="ambience_id_09" ID="AMBIENCE_ID_09" Index="9"/>
+        <Item Key="ambience_id_0a" ID="AMBIENCE_ID_0A" Index="10"/>
+        <Item Key="ambience_id_0b" ID="AMBIENCE_ID_0B" Index="11"/>
+        <Item Key="ambience_id_0c" ID="AMBIENCE_ID_0C" Index="12"/>
+        <Item Key="ambience_id_0d" ID="AMBIENCE_ID_0D" Index="13"/>
+        <Item Key="ambience_id_0e" ID="AMBIENCE_ID_0E" Index="14"/>
+        <Item Key="ambience_id_0f" ID="AMBIENCE_ID_0F" Index="15"/>
+        <Item Key="ambience_id_10" ID="AMBIENCE_ID_10" Index="16"/>
+        <Item Key="ambience_id_11" ID="AMBIENCE_ID_11" Index="17"/>
+        <Item Key="ambience_id_12" ID="AMBIENCE_ID_12" Index="18"/>
+        <Item Key="ambience_id_13" ID="AMBIENCE_ID_13" Index="19"/>
+        <Item Key="ambience_id_disabled" ID="AMBIENCE_ID_DISABLED" Index="255"/>
+    </Enum>
+    <Enum Key="skyboxId" ID="SkyboxId">
+        <Item Key="skybox_none" ID="SKYBOX_NONE" Index="0"/>
+        <Item Key="skybox_normal" ID="SKYBOX_NORMAL_SKY" Index="1"/>
+        <Item Key="skybox_2" ID="SKYBOX_2" Index="2"/>
+        <Item Key="skybox_3" ID="SKYBOX_3" Index="3"/>
+        <Item Key="skybox_cutscene_map" ID="SKYBOX_CUTSCENE_MAP" Index="5"/>
+    </Enum>
+    <Enum Key="skyboxConfig" ID="SkyboxConfig">
+        <Item Key="skybox_cfg_0" ID="SKYBOX_CONFIG_0" Index="0"/>
+        <Item Key="skybox_cfg_1" ID="SKYBOX_CONFIG_1" Index="1"/>
+        <Item Key="skybox_cfg_2" ID="SKYBOX_CONFIG_2" Index="2"/>
+        <Item Key="skybox_cfg_3" ID="SKYBOX_CONFIG_3" Index="3"/>
+        <Item Key="skybox_cfg_4" ID="SKYBOX_CONFIG_4" Index="4"/>
+        <Item Key="skybox_cfg_5" ID="SKYBOX_CONFIG_5" Index="5"/>
+        <Item Key="skybox_cfg_6" ID="SKYBOX_CONFIG_6" Index="6"/>
+        <Item Key="skybox_cfg_7" ID="SKYBOX_CONFIG_7" Index="7"/>
+        <Item Key="skybox_cfg_8" ID="SKYBOX_CONFIG_8" Index="8"/>
+        <Item Key="skybox_cfg_9" ID="SKYBOX_CONFIG_9" Index="9"/>
+        <Item Key="skybox_cfg_10" ID="SKYBOX_CONFIG_10" Index="10"/>
+        <Item Key="skybox_cfg_11" ID="SKYBOX_CONFIG_11" Index="11"/>
+        <Item Key="skybox_cfg_12" ID="SKYBOX_CONFIG_12" Index="12"/>
+        <Item Key="skybox_cfg_13" ID="SKYBOX_CONFIG_13" Index="13"/>
+        <Item Key="skybox_cfg_14" ID="SKYBOX_CONFIG_14" Index="14"/>
+        <Item Key="skybox_cfg_15" ID="SKYBOX_CONFIG_15" Index="15"/>
+        <Item Key="skybox_cfg_16" ID="SKYBOX_CONFIG_16" Index="16"/>
+        <Item Key="skybox_cfg_17" ID="SKYBOX_CONFIG_17" Index="17"/>
+        <Item Key="skybox_cfg_18" ID="SKYBOX_CONFIG_18" Index="18"/>
+        <Item Key="skybox_cfg_19" ID="SKYBOX_CONFIG_19" Index="19"/>
+        <Item Key="skybox_cfg_20" ID="SKYBOX_CONFIG_20" Index="20"/>
+        <Item Key="skybox_cfg_21" ID="SKYBOX_CONFIG_21" Index="21"/>
+        <Item Key="skybox_cfg_22" ID="SKYBOX_CONFIG_22" Index="22"/>
+        <Item Key="skybox_cfg_23" ID="SKYBOX_CONFIG_23" Index="23"/>
+        <Item Key="skybox_cfg_24" ID="SKYBOX_CONFIG_24" Index="24"/>
+        <Item Key="skybox_cfg_25" ID="SKYBOX_CONFIG_25" Index="25"/>
+        <Item Key="skybox_cfg_26" ID="SKYBOX_CONFIG_26" Index="26"/>
+        <Item Key="skybox_cfg_27" ID="SKYBOX_CONFIG_27" Index="27"/>
+    </Enum>
+    <Enum Key="roomType" ID="RoomType">
+        <Item Key="room_type_normal" ID="ROOM_TYPE_NORMAL" Index="0"/>
+        <Item Key="room_type_dungeon" ID="ROOM_TYPE_DUNGEON" Index="1"/>
+        <Item Key="room_type_indoors" ID="ROOM_TYPE_INDOORS" Index="2"/>
+        <Item Key="room_type_3" ID="ROOM_TYPE_3" Index="3"/>
+        <Item Key="room_type_4" ID="ROOM_TYPE_4" Index="4"/>
+        <Item Key="room_type_boss" ID="ROOM_TYPE_BOSS" Index="5"/>
+    </Enum>
+    <Enum Key="environmentType" ID="RoomEnvironmentType">
+        <Item Key="env_default" ID="ROOM_ENV_DEFAULT" Index="0"/>
+        <Item Key="env_" ID="ROOM_ENV_COLD" Index="1"/>
+        <Item Key="env_warm" ID="ROOM_ENV_WARM" Index="2"/>
+        <Item Key="env_hot" ID="ROOM_ENV_HOT" Index="3"/>
+        <Item Key="env_unk_1" ID="ROOM_ENV_UNK_STRETCH_1" Index="4"/>
+        <Item Key="env_unk_2" ID="ROOM_ENV_UNK_STRETCH_2" Index="5"/>
+        <Item Key="env_unk_3" ID="ROOM_ENV_UNK_STRETCH_3" Index="6"/>
+    </Enum>
+    <Enum Key="lensMode" ID="LensMode">
+        <Item Key="lens_show_actors" ID="LENS_MODE_SHOW_ACTORS" Index="0"/>
+        <Item Key="lens_hide_actors" ID="LENS_MODE_HIDE_ACTORS" Index="1"/>
+    </Enum>
+    <Enum Key="stormState" ID="StormState">
+        <Item Key="storm_state_off" ID="STORM_STATE_OFF" Index="0"/>
+        <Item Key="storm_state_on" ID="STORM_STATE_ON" Index="1"/>
     </Enum>
 </Root>

@@ -62,6 +62,8 @@ void MapSelect_LoadGame(MapSelectState* this, u32 entrance, s32 spawn) {
 
 // "Translation" (Actual name)
 static SceneSelectEntry sScenes[] = {
+    { "  DEBUG1", MapSelect_LoadGame, ENTRANCE(DEBUG1, 0) },
+
     // "0: OP Woods for Cutscene Use" (Forest Opening Scene)
     { "  0:OP" GFXP_KATAKANA "ﾃﾞﾓ" GFXP_HIRAGANA "ﾖｳ ｼﾝﾘﾝ", MapSelect_LoadGame, ENTRANCE(CUTSCENE, 0) },
 

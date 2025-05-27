@@ -1484,6 +1484,27 @@ void Play_Draw(PlayState* this) {
     }
 }
 
+void Cutscene_DrawDebugInfo(PlayState* this, Gfx** dlist, CutsceneContext* csCtx) {
+    GfxPrint printer;
+    s32 pad[2];
+    Camera* camera = Play_GetCamera(this, csCtx->subCamId);
+
+    GfxPrint_Init(&printer);
+    GfxPrint_Open(&printer, *dlist);
+
+    GfxPrint_SetPos(&printer, 22, 25);
+    GfxPrint_SetColor(&printer, 255, 255, 55, 32);
+    GfxPrint_Printf(&printer, "%s", "FLAME ");
+    GfxPrint_SetColor(&printer, 255, 255, 255, 32);
+    GfxPrint_Printf(&printer, "%06d", csCtx->curFrame);
+    GfxPrint_SetColor(&printer, 50, 255, 255, 60);
+    GfxPrint_SetPos(&printer, 4, 26);
+    GfxPrint_Printf(&printer, "%f, %f, %f", camera->at.x, camera->at.y, camera->at.z);
+
+    *dlist = GfxPrint_Close(&printer);
+    GfxPrint_Destroy(&printer);
+}
+
 void Play_Main(GameState* thisx) {
     static Input* prevInput = NULL;
     PlayState* this = (PlayState*)thisx;
@@ -1510,6 +1531,32 @@ void Play_Main(GameState* thisx) {
         Play_Draw(this);
         *CONTROLLER1(&this->state) = input;
     }
+
+    // if (prevInput != NULL) {
+    //     if (CutsceneManager_IsNext(14)) {
+    //         CutsceneManager_Start(14, &GET_PLAYER(this)->actor);
+    //     } else if (CHECK_BTN_ALL(prevInput->press.button, BTN_DDOWN)) {
+    //         CutsceneManager_Queue(14);
+    //     }
+    // }
+
+    // {
+    //     Gfx* displayList;
+    //     Gfx* prevDisplayList;
+
+    //     OPEN_DISPS(this->state.gfxCtx);
+
+    //     prevDisplayList = POLY_OPA_DISP;
+    //     displayList = Gfx_Open(POLY_OPA_DISP);
+    //     gSPDisplayList(OVERLAY_DISP++, displayList);
+    //     Cutscene_DrawDebugInfo(this, &displayList, &this->csCtx);
+    //     gSPEndDisplayList(displayList++);
+    //     Gfx_Close(prevDisplayList, displayList);
+    //     POLY_OPA_DISP = displayList;
+
+    //     CLOSE_DISPS(this->state.gfxCtx);
+    // }
+
 
     CutsceneManager_Update();
     CutsceneManager_ClearWaiting();

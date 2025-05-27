@@ -700,6 +700,7 @@ typedef enum {
     /* 0x6B */ ENTR_SCENE_NORTH_CLOCK_TOWN,
     /* 0x6C */ ENTR_SCENE_SOUTH_CLOCK_TOWN,
     /* 0x6D */ ENTR_SCENE_LAUNDRY_POOL,
+    ENTR_SCENE_DEBUG1,
     /* 0x6E */ ENTR_SCENE_MAX
 } EntranceSceneId;
 

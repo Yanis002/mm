@@ -13018,6 +13018,52 @@ Gfx* D_8085D574[] = {
 Color_RGB8 D_8085D580 = { 255, 255, 255 };
 Color_RGB8 D_8085D584 = { 80, 80, 200 };
 
+#include "gfxalloc.h"
+
+void print_floor_type(Player* this, PlayState* play) {
+    GraphicsContext* gfxCtx = play->state.gfxCtx;
+    Gfx* gfx;
+    Gfx* polyOpa;
+    GfxPrint printer;
+
+    OPEN_DISPS(gfxCtx);
+
+    polyOpa = POLY_OPA_DISP;
+    gfx = Gfx_Open(polyOpa);
+    gSPDisplayList(OVERLAY_DISP++, gfx);
+
+    GfxPrint_Init(&printer);
+    GfxPrint_Open(&printer, gfx);
+    GfxPrint_SetColor(&printer, 250, 255, 255, 255);
+
+    GfxPrint_SetPos(&printer, 3, 8);
+    GfxPrint_Printf(&printer, "this->actor.category: %d", this->actor.category);
+
+    GfxPrint_SetPos(&printer, 3, 9);
+    GfxPrint_Printf(&printer, "this->doorType: %d", this->doorType);
+
+    GfxPrint_SetPos(&printer, 3, 10);
+    GfxPrint_Printf(&printer, "CS_ID_GLOBAL_TALK: %d", CutsceneManager_IsNext(CS_ID_GLOBAL_TALK));
+
+    GfxPrint_SetPos(&printer, 3, 11);
+    GfxPrint_Printf(&printer, "CS_ID_GLOBAL_DOOR: %d", CutsceneManager_IsNext(CS_ID_GLOBAL_DOOR));
+
+    GfxPrint_SetPos(&printer, 3, 12);
+    GfxPrint_Printf(&printer, "not PLAYER_STATE1_CARRYING_ACTOR: %d", !(this->stateFlags1 & PLAYER_STATE1_CARRYING_ACTOR));
+
+    GfxPrint_SetPos(&printer, 3, 13);
+    GfxPrint_Printf(&printer, "actionFunc check: %d", (Player_Action_TryOpeningDoor == this->actionFunc));
+
+    gfx = GfxPrint_Close(&printer);
+    GfxPrint_Destroy(&printer);
+
+    gSPEndDisplayList(gfx++);
+    Gfx_Close(polyOpa, gfx);
+    POLY_OPA_DISP = gfx;
+
+    CLOSE_DISPS(gfxCtx);
+}
+
 void Player_Draw(Actor* thisx, PlayState* play) {
     Player* this = (Player*)thisx;
     f32 one = 1.0f;
@@ -13235,6 +13281,8 @@ void Player_Draw(Actor* thisx, PlayState* play) {
     }
 
     play->actorCtx.flags &= ~ACTORCTX_FLAG_3;
+
+    // print_floor_type(this, play);
 }
 
 void Player_Destroy(Actor* thisx, PlayState* play) {

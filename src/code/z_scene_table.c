@@ -2563,6 +2563,14 @@ static EntranceTableEntry* sCutsceneEntranceTable[] = {
     sCutsceneEntrance5, sCutsceneEntrance6, sCutsceneEntrance7, sCutsceneEntrance8, sCutsceneEntrance9,
 };
 
+static EntranceTableEntry sDebug1Entrance1[] = {
+    { SCENE_DEBUG1, 0, 0x4102 },
+};
+
+static EntranceTableEntry* sDebug1EntranceTable[] = {
+    sDebug1Entrance1,
+};
+
 #define SCENE_ENTRANCE(entranceTable, name) \
     { ARRAY_COUNT(entranceTable), entranceTable, name }
 
@@ -2680,6 +2688,7 @@ static SceneEntranceTableEntry sSceneEntranceTable[] = {
     /* 0x6B */ SCENE_ENTRANCE(sNorthClockTownEntranceTable, "Z2_BACKTOWN"),
     /* 0x6C */ SCENE_ENTRANCE(sSouthClockTownEntranceTable, "Z2_CLOCKTOWER"),
     /* 0x6D */ SCENE_ENTRANCE(sLaundryPoolEntranceTable, "Z2_ALLEY"),
+    /* 0x6D */ SCENE_ENTRANCE(sDebug1EntranceTable, "DEBUG1"),
 };
 
 /**

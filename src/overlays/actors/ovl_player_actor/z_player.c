@@ -3,7 +3,6 @@
  * Overlay: ovl_player_actor
  * Description: Player
  */
-#include "prevent_bss_reordering.h"
 #include "z64player.h"
 
 #include "global.h"
@@ -46,6 +45,8 @@
 #include "assets/objects/object_link_zora/object_link_zora.h"
 #include "assets/objects/object_link_nuts/object_link_nuts.h"
 #include "assets/objects/object_link_child/object_link_child.h"
+
+#pragma increment_block_number "n64-us:128"
 
 void Player_Init(Actor* thisx, PlayState* play);
 void Player_Destroy(Actor* thisx, PlayState* play);
@@ -280,7 +281,7 @@ void Player_CsAction_20(PlayState* play, Player* this, CsCmdActorCue* cue);
 void Player_CsAction_21(PlayState* play, Player* this, CsCmdActorCue* cue);
 void Player_CsAction_22(PlayState* play, Player* this, CsCmdActorCue* cue);
 void Player_CsAction_23(PlayState* play, Player* this, CsCmdActorCue* cue);
-void Player_CsAction_TranslateReverse(PlayState* play, Player* this, CsCmdActorCue* cue);
+void Player_CsAction_TranslateReverse(PlayState* play, Player* this, CsCmdActorCue* cue2);
 void Player_CsAction_25(PlayState* play, Player* this, CsCmdActorCue* cue);
 void Player_CsAction_26(PlayState* play, Player* this, CsCmdActorCue* cue);
 void Player_CsAction_27(PlayState* play, Player* this, CsCmdActorCue* cue);
@@ -5671,7 +5672,7 @@ void func_80833864(PlayState* play, Player* this, PlayerMeleeWeaponAnimation mel
     }
 
     // Accumulate consecutive slashes to do the "third slash" types
-    if ((meleeWeaponAnim != this->meleeWeaponAnimation) || (this->unk_ADD >= 3)) {
+    if (((s32)meleeWeaponAnim != this->meleeWeaponAnimation) || (this->unk_ADD >= 3)) {
         this->unk_ADD = 0;
     }
 
@@ -7279,7 +7280,8 @@ void func_808379C0(PlayState* play, Player* this) {
         Actor* interactRangeActor = this->interactRangeActor;
         PlayerAnimationHeader* anim;
 
-        if ((interactRangeActor->id == ACTOR_EN_ISHI) && (ENISHI_GET_1(interactRangeActor) != 0)) {
+        if ((interactRangeActor->id == ACTOR_EN_ISHI) &&
+            (ENISHI_GET_SIZE_FLAG(interactRangeActor) != ISHI_SIZE_SMALL_ROCK)) {
             Player_SetAction(play, this, Player_Action_38, 0);
             anim = &gPlayerAnim_link_silver_carry;
         } else if (((interactRangeActor->id == ACTOR_EN_BOMBF) || (interactRangeActor->id == ACTOR_EN_KUSA) ||
@@ -11406,7 +11408,7 @@ void func_808425B4(Player* this) {
  *     - Tatl C-up icon for hints
  */
 void Player_UpdateInterface(PlayState* play, Player* this) {
-    DoAction doActionB;
+    s32 doActionB;
     s32 sp38;
 
     if (this != GET_PLAYER(play)) {
@@ -11475,7 +11477,6 @@ void Player_UpdateInterface(PlayState* play, Player* this) {
             doActionA = DO_ACTION_RETURN;
         } else if ((this->heldItemAction == PLAYER_IA_FISHING_ROD) && (this->unk_B28 != 0)) {
             doActionA = (this->unk_B28 == 2) ? DO_ACTION_REEL : DO_ACTION_NONE;
-            doActionA = (this->unk_B28 == 2) ? DO_ACTION_REEL : DO_ACTION_NONE; //! FAKE: duplicated statement
         } else if (this->stateFlags3 & PLAYER_STATE3_2000) {
             doActionA = DO_ACTION_DOWN;
         } else if ((this->doorType != PLAYER_DOORTYPE_NONE) && (this->doorType != PLAYER_DOORTYPE_STAIRCASE) &&
@@ -18632,12 +18633,19 @@ void func_80855218(PlayState* play, Player* this, struct_8085D910** arg2) {
     }
 }
 
+//! @bug This array may be indexed with PLAYER_FORM_HUMAN, causing an out-of-bounds access
 u16 D_8085D908[] = {
     WEEKEVENTREG_30_80, // PLAYER_FORM_FIERCE_DEITY
     WEEKEVENTREG_30_20, // PLAYER_FORM_GORON
     WEEKEVENTREG_30_40, // PLAYER_FORM_ZORA
     WEEKEVENTREG_30_10, // PLAYER_FORM_DEKU
+#ifdef AVOID_UB
+    // Avoid UB: Provide the data that would be read by indexing this with PLAYER_FORM_HUMAN.
+    // Both this array and D_8085D910 are read-only so this is not expected to change.
+    WEEKEVENTREG_16_02 | WEEKEVENTREG_16_08, // PLAYER_FORM_HUMAN
+#endif
 };
+
 struct_8085D910 D_8085D910[] = {
     { 0x10, 0xA, 0x3B, 0x3F },
     { 9, 0x32, 0xA, 0xD },
@@ -20692,28 +20700,15 @@ void Player_CsAction_23(PlayState* play, Player* this, CsCmdActorCue* cue) {
     }
 }
 
-void Player_CsAction_TranslateReverse(PlayState* play, Player* this, CsCmdActorCue* cue) {
-    s32 pad;
-    f32 xEnd;
-    f32 yEnd;
-    f32 zEnd;
-    f32 xDiff;
-    f32 yDiff;
-    f32 zDiff;
-    f32 progress;
-
-    xEnd = cue->endPos.x;
-    yEnd = cue->endPos.y;
-    zEnd = cue->endPos.z;
-
-    xDiff = cue->startPos.x - xEnd;
-    yDiff = cue->startPos.y - yEnd;
-    zDiff = cue->startPos.z - zEnd;
-
-    //! FAKE:
-    if (1) {}
-
-    progress = ((f32)(cue->endFrame - play->csCtx.curFrame)) / ((f32)(cue->endFrame - cue->startFrame));
+void Player_CsAction_TranslateReverse(PlayState* play, Player* this, CsCmdActorCue* cue2) {
+    CsCmdActorCue* cue = cue2;
+    f32 xEnd = cue->endPos.x;
+    f32 yEnd = cue->endPos.y;
+    f32 zEnd = cue->endPos.z;
+    f32 xDiff = cue->startPos.x - xEnd;
+    f32 yDiff = cue->startPos.y - yEnd;
+    f32 zDiff = cue->startPos.z - zEnd;
+    f32 progress = (f32)(cue->endFrame - play->csCtx.curFrame) / (f32)(cue->endFrame - cue->startFrame);
 
     this->actor.world.pos.x = (xDiff * progress) + xEnd;
     this->actor.world.pos.y = (yDiff * progress) + yEnd;

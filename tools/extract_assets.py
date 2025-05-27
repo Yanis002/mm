@@ -26,7 +26,7 @@ def ExtractFile(xmlPath, outputPath, outputSourcePath):
             generateSourceFile = "0"
             break
 
-    execStr = f"tools/ZAPD/ZAPD.out e -eh -i {xmlPath} -b {globalBaseromSegmentsDir} -o {outputPath} -osf {outputSourcePath} -gsf {generateSourceFile} -rconf tools/ZAPDConfigs/MM/Config.xml {ZAPDArgs}"
+    execStr = f"tools/ZAPD/ZAPD.out e -eh -i {xmlPath} -b {globalBaseromSegmentsDir} -o {outputPath} -osf {outputSourcePath} -gsf {generateSourceFile} -rconf tools/ZAPDConfigs/MM/Config.xml --cs-float both {ZAPDArgs}"
 
     if globalUnaccounted:
         execStr += " -Wunaccounted"
@@ -129,7 +129,7 @@ def main():
     manager = multiprocessing.Manager()
     signal.signal(signal.SIGINT, SignalHandler)
 
-    extractedAssetsFile = Path("extracted") / args.version / ".extracted-assets.json"
+    extractedAssetsFile = outputDir / ".extracted-assets.json"
     extractedAssetsTracker = manager.dict()
     if not args.force and extractedAssetsFile.exists():
         with extractedAssetsFile.open(encoding='utf-8') as f:

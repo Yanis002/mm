@@ -1837,6 +1837,13 @@ Gfx gCullFrontDList[] = {
     gsSPEndDisplayList(),
 };
 
+/**
+ * Link's eyes and mouth textures are placed at the exact same place in Link's form object files.
+ * This allows the array to only contain the symbols for one file and have it apply to both. This is a problem for
+ * shiftability, and changes will need to be made in the code to account for this in a modding scenario. The symbols
+ * from human Link's object are used here.
+ */
+#ifndef AVOID_UB
 TexturePtr sPlayerEyesTextures[PLAYER_EYES_MAX] = {
     gLinkHumanEyesOpenTex,        // PLAYER_EYES_OPEN
     gLinkHumanEyesHalfTex,        // PLAYER_EYES_HALF
@@ -1854,6 +1861,94 @@ TexturePtr sPlayerMouthTextures[PLAYER_MOUTH_MAX] = {
     gLinkHumanMouthAngryTex,  // PLAYER_MOUTH_ANGRY
     gLinkHumanMouthHappyTex,  // PLAYER_MOUTH_HAPPY
 };
+#else
+// Defining `AVOID_UB` will use a 2D array instead and properly use the child link pointers to allow for shifting.
+TexturePtr sPlayerEyesTextures[][PLAYER_EYES_MAX] = {
+    {
+        gLinkHumanEyesOpenTex,        // PLAYER_EYES_OPEN
+        gLinkHumanEyesHalfTex,        // PLAYER_EYES_HALF
+        gLinkHumanEyesClosedTex,      // PLAYER_EYES_CLOSED
+        gLinkHumanEyesRollRightTex,   // PLAYER_EYES_ROLL_RIGHT
+        gLinkHumanEyesRollLeftTex,    // PLAYER_EYES_ROLL_LEFT
+        gLinkHumanEyesRollUpTex,      // PLAYER_EYES_ROLL_UP
+        gLinkHumanEyesRollDownTex,    // PLAYER_EYES_ROLL_DOWN
+        object_link_child_Tex_003800, // PLAYER_EYES_7
+    },
+    {
+        gLinkGoronEyesOpenTex,      // PLAYER_EYES_OPEN
+        gLinkGoronEyesHalfTex,      // PLAYER_EYES_HALF
+        gLinkGoronEyesClosedTex,    // PLAYER_EYES_CLOSED
+        gLinkHumanEyesRollRightTex, // PLAYER_EYES_ROLL_RIGHT
+        gLinkHumanEyesRollLeftTex,  // PLAYER_EYES_ROLL_LEFT
+        gLinkHumanEyesRollUpTex,    // PLAYER_EYES_ROLL_UP
+        gLinkHumanEyesRollDownTex,  // PLAYER_EYES_ROLL_DOWN
+        gLinkGoronEyesSurprisedTex, // PLAYER_EYES_7
+    },
+    {
+        gLinkZoraEyesOpenTex,        // PLAYER_EYES_OPEN
+        gLinkZoraEyesHalfTex,        // PLAYER_EYES_HALF
+        gLinkZoraEyesClosedTex,      // PLAYER_EYES_CLOSED
+        gLinkZoraEyesRollRightTex,   // PLAYER_EYES_ROLL_RIGHT
+        gLinkZoraEyesRollLeftTex,    // PLAYER_EYES_ROLL_LEFT
+        gLinkZoraEyesRollUpTex,      // PLAYER_EYES_ROLL_UP
+        gLinkZoraEyesRollDownTex,    // PLAYER_EYES_ROLL_DOWN
+        object_link_zora_Tex_003800, // PLAYER_EYES_7
+    },
+    {
+        gLinkHumanEyesOpenTex,        // PLAYER_EYES_OPEN
+        gLinkHumanEyesHalfTex,        // PLAYER_EYES_HALF
+        gLinkHumanEyesClosedTex,      // PLAYER_EYES_CLOSED
+        gLinkHumanEyesRollRightTex,   // PLAYER_EYES_ROLL_RIGHT
+        gLinkHumanEyesRollLeftTex,    // PLAYER_EYES_ROLL_LEFT
+        gLinkHumanEyesRollUpTex,      // PLAYER_EYES_ROLL_UP
+        gLinkHumanEyesRollDownTex,    // PLAYER_EYES_ROLL_DOWN
+        object_link_child_Tex_003800, // PLAYER_EYES_7
+    },
+    {
+        gLinkHumanEyesOpenTex,        // PLAYER_EYES_OPEN
+        gLinkHumanEyesHalfTex,        // PLAYER_EYES_HALF
+        gLinkHumanEyesClosedTex,      // PLAYER_EYES_CLOSED
+        gLinkHumanEyesRollRightTex,   // PLAYER_EYES_ROLL_RIGHT
+        gLinkHumanEyesRollLeftTex,    // PLAYER_EYES_ROLL_LEFT
+        gLinkHumanEyesRollUpTex,      // PLAYER_EYES_ROLL_UP
+        gLinkHumanEyesRollDownTex,    // PLAYER_EYES_ROLL_DOWN
+        object_link_child_Tex_003800, // PLAYER_EYES_7
+    },
+};
+
+TexturePtr sPlayerMouthTextures[][PLAYER_MOUTH_MAX] = {
+    {
+        gLinkHumanMouthClosedTex, // PLAYER_MOUTH_CLOSED
+        gLinkHumanMouthTeethTex,  // PLAYER_MOUTH_TEETH
+        gLinkHumanMouthAngryTex,  // PLAYER_MOUTH_ANGRY
+        gLinkHumanMouthHappyTex,  // PLAYER_MOUTH_HAPPY
+    },
+    {
+        gLinkHumanMouthClosedTex, // PLAYER_MOUTH_CLOSED
+        gLinkHumanMouthTeethTex,  // PLAYER_MOUTH_TEETH
+        gLinkHumanMouthAngryTex,  // PLAYER_MOUTH_ANGRY
+        gLinkHumanMouthHappyTex,  // PLAYER_MOUTH_HAPPY
+    },
+    {
+        gLinkZoraMouthClosedTex, // PLAYER_MOUTH_CLOSED
+        gLinkHumanMouthTeethTex, // PLAYER_MOUTH_TEETH
+        gLinkZoraMouthAngryTex,  // PLAYER_MOUTH_ANGRY
+        gLinkZoraMouthHappyTex,  // PLAYER_MOUTH_HAPPY
+    },
+    {
+        gLinkHumanMouthClosedTex, // PLAYER_MOUTH_CLOSED
+        gLinkHumanMouthTeethTex,  // PLAYER_MOUTH_TEETH
+        gLinkHumanMouthAngryTex,  // PLAYER_MOUTH_ANGRY
+        gLinkHumanMouthHappyTex,  // PLAYER_MOUTH_HAPPY
+    },
+    {
+        gLinkHumanMouthClosedTex, // PLAYER_MOUTH_CLOSED
+        gLinkHumanMouthTeethTex,  // PLAYER_MOUTH_TEETH
+        gLinkHumanMouthAngryTex,  // PLAYER_MOUTH_ANGRY
+        gLinkHumanMouthHappyTex,  // PLAYER_MOUTH_HAPPY
+    },
+};
+#endif
 
 typedef struct PlayerFaceIndices {
     /* 0x0 */ u8 eyeIndex;
@@ -1904,13 +1999,21 @@ void Player_DrawImpl(PlayState* play, void** skeleton, Vec3s* jointTable, s32 dL
         }
     }
 
+#ifndef AVOID_UB
     gSPSegment(&gfx[0], 0x08, Lib_SegmentedToVirtual(sPlayerEyesTextures[eyeIndex]));
+#else
+    gSPSegment(&gfx[0], 0x08, Lib_SegmentedToVirtual(sPlayerEyesTextures[playerForm][eyeIndex]));
+#endif
 
     if (mouthIndex < 0) {
         mouthIndex = sPlayerFaces[face].mouthIndex;
     }
 
+#ifndef AVOID_UB
     gSPSegment(&gfx[1], 0x09, Lib_SegmentedToVirtual(sPlayerMouthTextures[mouthIndex]));
+#else
+    gSPSegment(&gfx[1], 0x09, Lib_SegmentedToVirtual(sPlayerMouthTextures[playerForm][mouthIndex]));
+#endif
 
     POLY_OPA_DISP = &gfx[2];
 
